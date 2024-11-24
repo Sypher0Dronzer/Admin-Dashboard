@@ -11,7 +11,11 @@ export default {
   },
   plugins: [
     require('daisyui'),
+    require('tailwind-scrollbar'),
   ],
+  variants: {
+    scrollbar: ['rounded'], // Optional: Add rounded scrollbar support
+  },
   daisyui: {
     themes: [
       'light',

@@ -7,8 +7,7 @@ export default function App() {
   return (
     <div className="font-poppins max-w-[100vw] overflow-hidden">
       <BrowserRouter>
-        <LeftNav />
-        <Navbar />
+        
         <MainContent />
       </BrowserRouter>
     </div>
