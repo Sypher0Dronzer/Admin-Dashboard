@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineAnalytics } from "react-icons/md";
 import { MdOutlineDateRange } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { PiPaintBrushBroadDuotone } from "react-icons/pi";
 
 const LeftNav = () => {
   const navigate = useNavigate();
@@ -30,12 +31,21 @@ const LeftNav = () => {
           <IoSettingsOutline className="size-6" />
         </button>
       </ul>
+      <div className="flex flex-col gap-y-4">
+      <button
+          onClick={navigate("/settings")}
+          className="btn btn-square btn-ghost hover:text-primary-content text-primary hover:bg-primary"
+        >
+      <PiPaintBrushBroadDuotone className="size-6" />
+        </button>
       <button
           onClick={navigate("/settings")}
           className="btn btn-square btn-ghost hover:text-primary-content text-primary hover:bg-primary"
         >
       <RiLogoutCircleRLine className="size-6" />
         </button>
+        
+      </div>
     </div>
   );
 };
