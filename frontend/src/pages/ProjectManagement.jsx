@@ -11,18 +11,17 @@ import { useEffect } from "react";
 const ProjectManagement = () => {
   const { projects, allProjects, isLoading } = useProjects();
 
-  // Call `allProjects` when the component mounts
   useEffect(() => {
-    allProjects();  // Fetch projects when the component is mounted
-  }, [allProjects]);
+    allProjects(); 
+  }, []);
 
   // Render loading state
-  if (isLoading) {
+  if(isLoading){
     return (
-      <div className="loading-spinner">
-        <p>Loading Projects...</p>
+      <div className="h-screen bg-base-300 flex items-center justify-center">
+        <span className="loading loading-bars text-accent loading-lg"></span>
       </div>
-    );
+    )
   }
 
   return (
@@ -32,7 +31,7 @@ const ProjectManagement = () => {
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
           <h1 className="text-lg font-bold">Projects</h1>
-          <p className="badge badge-primary">{projects.length}</p>
+          <p className="badge badge-primary">{projects?.length}</p>
         </div>
         <div className="flex gap-x-4">
           <button className="btn btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">

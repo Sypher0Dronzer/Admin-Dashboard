@@ -1,11 +1,24 @@
 import { FiFilter } from "react-icons/fi";
 import { IoAdd } from "react-icons/io5";
-import users from "./dummy/dummyUsers";
+// import allUsers from "./dummy/dummyUsers";
 import { AiOutlineDelete } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
 import LeftNav from "../components/LeftNav";
 import Navbar from "../components/Navbar";
+import { useUsers } from "../zustand/useUsers";
+import { useEffect } from "react";
 const UsersManagement = () => {
+  const {allUsers,isLoading,getAllUsers}= useUsers()
+  useEffect(() => {
+    getAllUsers();  
+  }, []);
+  if(isLoading){
+    return (
+      <div className="h-screen bg-base-300 flex items-center justify-center">
+        <span className="loading loading-bars text-accent loading-lg"></span>
+      </div>
+    )
+  }
   return (
     <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
       <LeftNav />
@@ -13,7 +26,7 @@ const UsersManagement = () => {
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
           <h1 className="text-lg font-bold">Users</h1>
-          <p className="badge badge-primary">{users.length}</p>
+          <p className="badge badge-primary">{allUsers?.length}</p> 
         </div>
         <div className="flex gap-x-4">
           <button className="btn btn-square btn-ghost btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">
@@ -40,7 +53,7 @@ const UsersManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {allUsers?.map((user, index) => (
               <tr
                 key={index}
                 className={`${index % 2 == 0 ? "bg-base-100" : "bg-base-200"}`}
@@ -51,7 +64,7 @@ const UsersManagement = () => {
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img
-                          src={user.profilePic}
+                          src={user.profileImg}
                           alt={`${user.name}'s profile`}
                         />
                       </div>
@@ -63,9 +76,16 @@ const UsersManagement = () => {
                   </div>
                 </td>
                 <td>
-                  <p className="capitalize">{user.role.join(", ")}</p>
+                  <p className="capitalize">{user.role}</p>
                 </td>
-                <td>{user.projects.join(", ")}</td>
+                <td>
+  {user.projects.map((project, index) => (
+    <span key={index}>
+      {project.name}
+      <br />
+    </span>
+  ))}
+</td>
                 <td>
                   <div
                     className={`badge badge-lg capitalize w-20 ${

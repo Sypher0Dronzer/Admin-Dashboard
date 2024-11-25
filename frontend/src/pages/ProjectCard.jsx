@@ -2,7 +2,6 @@ import { IoMdMore } from "react-icons/io";
 const ProjectCard = ({ detail }) => {
   const { name, projectLead,  tags, team, status } =
     detail;
-{console.log([projectLead])}
   // Calculate the number of additional members if there are more than 4
   const additionalMembers = team.length > 4 ? team.length - 4 : 0;
 

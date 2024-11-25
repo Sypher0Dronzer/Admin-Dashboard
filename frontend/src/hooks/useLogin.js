@@ -17,7 +17,6 @@ const useLogin = () => {
         withCredentials: true, // For sending cookies
       });
       const data = res.data;
-      {console.log(data)}
       if (data.error) {
         throw new Error(data.error);
       }

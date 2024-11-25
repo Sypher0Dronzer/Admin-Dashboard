@@ -9,9 +9,18 @@ import SignUp from "./pages/SignUp";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./zustand/useAuthStore";
 import Home from "./pages/Home";
+import { useEffect } from "react";
 
 export default function App() {
-  const {user}= useAuthStore()
+  const {user,authCheck,isLoading}=useAuthStore()
+  useEffect(()=>{
+    authCheck()
+  },[])
+  if(isLoading) return (
+    <div className="h-[100dvh] flex items-center justify-center">
+      <span className="loading loading-spinner loading-lg text-white"></span>
+    </div>
+  )
   return (
     <div className="font-poppins max-w-[100vw] overflow-hidden">
       <Routes>

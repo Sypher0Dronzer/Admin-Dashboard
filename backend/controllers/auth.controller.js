@@ -1,6 +1,7 @@
 import passport from "passport";
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
+import Project from "../models/project.model.js";
 
 export async function logout(req, res) {
   try {
@@ -145,8 +146,31 @@ console.log(loginError)
 export async function getAllUsers(req, res, next) {
   try {
     const users = await User.find().select("-password");
-    res.status(200).json({ success: true, users });
+
+    const getProjectDetails = async (projectId) => {
+      const project = await Project.findById(projectId);
+      return project;
+    };
+
+    const updatedUsers = await Promise.all(
+      users.map(async (user) => {
+        const projectsWithDetails = await Promise.all(
+          user.projects.map(async (projectId) => {
+            const projectDetails = await getProjectDetails(projectId);
+            return projectDetails;
+          })
+        );
+
+        return {
+          ...user.toObject(),
+          projects: projectsWithDetails, 
+        };
+      })
+    );
+
+    res.status(200).json({ success: true, users: updatedUsers });
   } catch (error) {
-    res.status(400).ison({success:false,message:error}); // Pass the error to the next middleware
+    res.status(400).json({ success: false, message: error.message }); // Pass the error to the response
   }
 }
+
