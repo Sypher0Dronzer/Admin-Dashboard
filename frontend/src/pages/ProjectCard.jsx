@@ -1,25 +1,35 @@
 import { IoMdMore } from "react-icons/io";
 const ProjectCard = ({ detail }) => {
-  const { name, eventLeadName, eventLeadEmail, tags, numberOfMembers, status } =
+  const { name, projectLead,  tags, team, status } =
     detail;
-
+{console.log([projectLead])}
   // Calculate the number of additional members if there are more than 4
-  const additionalMembers = numberOfMembers > 4 ? numberOfMembers - 4 : 0;
+  const additionalMembers = team.length > 4 ? team.length - 4 : 0;
 
   return (
-    <div className="bg-base-100 p-4 shadow-md rounded-lg">
+    <div className="bg-base-100 p-4 shadow-md card">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-lg font-bold">
-          {name.length > 16 ? name.slice(0, 15) + "..." : name}
+        <h1 className="text-lg font-semibold">
+          {name.length > 20 ? name.slice(0, 18) + "..." : name}
         </h1>
-        <div
-          className={`badge ${
-            status === "ongoing" ? "badge-primary" : "badge-accent"
-          }`}
-        >
-          {status}
+        <div className="dropdown dropdown-bottom dropdown-end ">
+          <div tabIndex={0} role="button" className="btn btn-sm btn-ghost btn-circle">
+          <IoMdMore className="text-lg" />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-neutral text-neutral-content rounded-box z-[1] w-52 p-2 shadow"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
         </div>
+        
       </div>
 
       {/* Lead Details */}
@@ -27,14 +37,15 @@ const ProjectCard = ({ detail }) => {
         <div className="avatar">
           <div className="w-12 rounded-full">
             <img
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              src={projectLead.profileImg}
               alt="Avatar"
             />
           </div>
         </div>
         <div>
-          <h1 className="text-md font-medium">{eventLeadName}</h1>
-          <p className="text-sm text-gray-600">{eventLeadEmail}</p>
+          <p className="text-xs text-accent">Project Lead</p>
+          <h1 className="text-md font-medium">{projectLead.name}</h1>
+          <p className="text-sm text-secondary">{projectLead.email}</p>
         </div>
       </div>
 
@@ -53,11 +64,11 @@ const ProjectCard = ({ detail }) => {
         </div>
       </div>
 
-      <div className="flex justify-between items-end mt-4">
+      <div className="flex justify-between items-center mt-4">
       {/* Members Avatar Group */}
         <div className="avatar-group -space-x-4 rtl:space-x-reverse  ">
           {/* Display 4 avatars */}
-          {Array.from({ length: Math.min(numberOfMembers, 4) }).map(
+          {Array.from({ length: Math.min(team.length, 4) }).map(
             (_, index) => (
               <div key={index} className="avatar">
                 <div className="w-8">
@@ -79,21 +90,12 @@ const ProjectCard = ({ detail }) => {
             </div>
           )}
         </div>
-        <div className="dropdown dropdown-top">
-          <div tabIndex={0} role="button" className="btn btn-sm btn-ghost btn-circle">
-          <IoMdMore className="text-lg" />
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-          </ul>
+        <div
+          className={`badge ${
+            status === "ongoing" ? "badge-primary" : "badge-accent"
+          }`}
+        >
+          {status}
         </div>
       </div>
     </div>

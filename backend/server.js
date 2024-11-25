@@ -10,6 +10,7 @@ import passport from "passport";
 
 //Import routes
 import authRoutes from "./routes/auth.route.js";
+import projectsRoutes from "./routes/project.route.js"
 
 dotenv.config();
 const app = express();
@@ -37,7 +38,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_LINK,
+  // origin: 'http://localhost:5173',
+  methods:["POST","GET","DELETE"],
+  credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -45,6 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectsRoutes);
 
 // Server Listener
 const PORT = process.env.PORT || 5000;

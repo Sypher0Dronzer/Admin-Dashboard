@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {fontFamily: {
       poppins: ['Poppins', 'sans-serif'], // Add Poppins font
+      montserrat: ["Montserrat", "sans-serif"],
     },},
   },
   plugins: [

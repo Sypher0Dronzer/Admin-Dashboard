@@ -4,7 +4,7 @@ import ThemeSwitcher from "../components/ThemeSwitcher";
 
 const Settings = () => {
   return (
-    <div>
+    <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
       <LeftNav />
       <Navbar />
         <h1 className="text-lg font-bold mb-4 text-primary">Themes To Choose From</h1>

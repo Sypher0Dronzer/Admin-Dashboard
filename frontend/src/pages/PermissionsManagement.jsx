@@ -1,6 +1,8 @@
 import { FiFilter } from "react-icons/fi";
 import messages from "./dummy/dummyMessages";
 import { useState } from "react";
+import LeftNav from "../components/LeftNav";
+import Navbar from "../components/Navbar";
 const PermissionsManagement = () => {
     const [selectedMessage, setSelectedMessage] = useState(null);
 
@@ -9,7 +11,9 @@ const PermissionsManagement = () => {
     alert(`You selected to ${action} for message ID: ${messageId}`);
   };
   return (
-    <div>
+    <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
+      <LeftNav />
+      <Navbar />
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
           <h1 className="text-lg font-bold">Permissions Requested</h1>

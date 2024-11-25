@@ -9,7 +9,7 @@ passport.use(
     try {
       const user = await User.findOne({ email });
       if (!user) {
-        return done(null, false, { message: 'Invalid credentials' });
+        return done(null, false, { message: 'User Not Found' });
       }
 
       const isPasswordCorrect = await bcryptjs.compare(password, user.password);

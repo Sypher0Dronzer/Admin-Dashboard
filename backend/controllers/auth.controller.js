@@ -37,13 +37,14 @@ export async function authCheck(req, res) {
 async function handleLogin(req, res) {
   return new Promise((resolve, reject) => {
     passport.authenticate("local", (err, user, info) => {
+
       if (err) {
         return reject({ status: 500, message: "Internal server error" });
       }
       if (!user) {
         return reject({
           status: 400,
-          message: info.message || "Invalid credentials",
+          message: info?.message || "Invalid credentials",
         });
       }
       req.logIn(user, (err) => {
@@ -61,7 +62,7 @@ async function handleLogin(req, res) {
 
 export async function signup(req, res) {
   try {
-    const { name, password, email, phone, address, state,} = req.body;
+    const { name, password, email, } = req.body;
 
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -79,13 +80,7 @@ export async function signup(req, res) {
       });
     }
 
-    const existingUserByUsername = await User.findOne({ name });
-    if (existingUserByUsername) {
-      return res.status(400).json({
-        success: false,
-        message: "Username already exists",
-      });
-    }
+    
 
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
@@ -103,11 +98,8 @@ export async function signup(req, res) {
       name,
       email,
       password: hashedPassword,
-      phone,
-      address,
-      state,
       projects:[],
-      role :["user"],
+      role :"contributor",
     });
 
     await newUser.save();
@@ -142,9 +134,19 @@ export async function login(req, res, next) {
       user: loginResult.user,
     });
   } catch (loginError) {
+console.log(loginError)
     return res.status(loginError.status).json({
       success: false,
       message: loginError.message,
     });
+  }
+}
+
+export async function getAllUsers(req, res, next) {
+  try {
+    const users = await User.find().select("-password");
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    res.status(400).ison({success:false,message:error}); // Pass the error to the next middleware
   }
 }

@@ -20,7 +20,6 @@ const projectSchema = new mongoose.Schema(
       enum: ["ongoing", "completed"],
       default: "ongoing", // Status of the project
     },
-    beginningDate: { type: Date, required: true }, // Start date of the project
   },
   { timestamps: true } // Automatically include createdAt and updatedAt timestamps
 );
