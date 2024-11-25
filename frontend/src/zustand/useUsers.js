@@ -11,12 +11,11 @@ export const useUsers = create((set) => ({
 
       // Get the backend URL from the useBackendUrl store
       const backendUrl = useBackendUrl.getState().backendUrl;
-
       const res = await axios.get(`${backendUrl}/api/auth/getAllUsers`, {
         withCredentials: true, // For sending cookies
       });
-{console.log(res.data)}
       set({ allUsers: res.data.users });
+
     } catch (error) {
       console.log("Error In loading projects", error);
     } finally {

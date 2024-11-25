@@ -14,7 +14,8 @@ import { useEffect } from "react";
 export default function App() {
   const {user,authCheck,isLoading}=useAuthStore()
   useEffect(()=>{
-    authCheck()
+    authCheck();
+   
   },[])
   if(isLoading) return (
     <div className="h-[100dvh] flex items-center justify-center">

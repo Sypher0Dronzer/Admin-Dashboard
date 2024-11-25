@@ -6,22 +6,26 @@ import ProjectCard from "./ProjectCard";
 import Navbar from "../components/Navbar";
 import LeftNav from "../components/LeftNav";
 import { useProjects } from "../zustand/useProjects";
-import { useEffect } from "react";
+import NewProjectForm from "../components/NewProjectForm";
+import AddMembersForm from "../components/AddMembersForm";
+import RemoveMembersForm from "../components/RemoveMembersForm";
 
 const ProjectManagement = () => {
-  const { projects, allProjects, isLoading } = useProjects();
+  const { projects, isLoading } = useProjects();
+  const {setSelectedProject}=useProjects()
 
-  useEffect(() => {
-    allProjects(); 
-  }, []);
+
+  // useEffect(() => {
+  //   allProjects();
+  // }, []);
 
   // Render loading state
-  if(isLoading){
+  if (isLoading) {
     return (
       <div className="h-screen bg-base-300 flex items-center justify-center">
         <span className="loading loading-bars text-accent loading-lg"></span>
       </div>
-    )
+    );
   }
 
   return (
@@ -37,9 +41,50 @@ const ProjectManagement = () => {
           <button className="btn btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">
             <FiFilter className="text-lg" />
           </button>
-          <button className="btn btn-xs sm:btn-sm btn-primary">
+          <button
+            className="btn btn-xs sm:btn-sm btn-primary"
+            onClick={() => document.getElementById("new_project_modal").showModal()}
+          >
             <IoAdd className="text-lg" /> <p>Add New Project</p>
           </button>
+          {/* -------------new project modal--------- */}
+          <dialog id="new_project_modal" className="modal">
+            <div className="modal-box bg-base-200">
+              <form method="dialog">
+                <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <NewProjectForm></NewProjectForm>
+            </div>
+          </dialog>
+
+          {/* -------------new member modal--------- */}
+          <dialog id={"new_member_modal"} className="modal ">
+                <div className="modal-box bg-base-200">
+                  <form method="dialog">
+                    <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2"
+                    onClick={()=>{setSelectedProject(null)
+                    }}>
+                      ✕
+                    </button>
+                  </form>
+                  <AddMembersForm></AddMembersForm>
+                </div>
+              </dialog>
+              {/* -------------remove member modal--------- */}
+          <dialog id={"remove_member_modal"} className="modal ">
+                <div className="modal-box bg-base-200">
+                  <form method="dialog">
+                    <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2"
+                    onClick={()=>{setSelectedProject(null)
+                    }}>
+                      ✕
+                    </button>
+                  </form>
+                  <RemoveMembersForm></RemoveMembersForm>
+                </div>
+              </dialog>
         </div>
       </div>
 

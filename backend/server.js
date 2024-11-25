@@ -11,9 +11,9 @@ import passport from "passport";
 //Import routes
 import authRoutes from "./routes/auth.route.js";
 import projectsRoutes from "./routes/project.route.js"
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
-const app = express();
 
 const mongoStore = MongoStore.create({
   mongoUrl: process.env.MONGO_URI, // Use the same database name
@@ -55,7 +55,7 @@ app.use("/api/projects", projectsRoutes);
 
 // Server Listener
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   connectDB();
 });

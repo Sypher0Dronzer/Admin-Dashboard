@@ -6,18 +6,17 @@ import { CiCircleMore } from "react-icons/ci";
 import LeftNav from "../components/LeftNav";
 import Navbar from "../components/Navbar";
 import { useUsers } from "../zustand/useUsers";
-import { useEffect } from "react";
 const UsersManagement = () => {
-  const {allUsers,isLoading,getAllUsers}= useUsers()
-  useEffect(() => {
-    getAllUsers();  
-  }, []);
-  if(isLoading){
+  const { allUsers, isLoading } = useUsers();
+  // useEffect(() => {
+  //   getAllUsers();
+  // }, []);
+  if (isLoading) {
     return (
       <div className="h-screen bg-base-300 flex items-center justify-center">
         <span className="loading loading-bars text-accent loading-lg"></span>
       </div>
-    )
+    );
   }
   return (
     <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
@@ -26,7 +25,7 @@ const UsersManagement = () => {
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
           <h1 className="text-lg font-bold">Users</h1>
-          <p className="badge badge-primary">{allUsers?.length}</p> 
+          <p className="badge badge-primary">{allUsers?.length}</p>
         </div>
         <div className="flex gap-x-4">
           <button className="btn btn-square btn-ghost btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">
@@ -79,13 +78,13 @@ const UsersManagement = () => {
                   <p className="capitalize">{user.role}</p>
                 </td>
                 <td>
-  {user.projects.map((project, index) => (
-    <span key={index}>
-      {project.name}
-      <br />
-    </span>
-  ))}
-</td>
+                  {user.projects.map((project, index) => (
+                    <span key={index}>
+                      {project?.name}
+                      <br />
+                    </span>
+                  ))}
+                </td>
                 <td>
                   <div
                     className={`badge badge-lg capitalize w-20 ${
@@ -104,7 +103,7 @@ const UsersManagement = () => {
                         index % 2 == 0 ? "bg-base-200" : "bg-base-100"
                       } btn btn-sm hover:btn-info`}
                     >
-                      <CiCircleMore className="text-lg" /> Details
+                      <CiCircleMore className="text-lg" /> More
                     </button>
                     <button
                       className={`${

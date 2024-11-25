@@ -1,11 +1,10 @@
 import { create } from "zustand";
 
 export const useTheme = create((set) => {
-  // Get the saved theme from local storage or default to 'luxury'
-  const savedTheme = localStorage.getItem('theme') || 'luxury';
+  const savedTheme = localStorage.getItem('theme') || 'forest';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
-  localStorage.setItem('theme', 'luxury');
+  // localStorage.setItem('theme', 'forest');
 
   return {
     theme: savedTheme,
