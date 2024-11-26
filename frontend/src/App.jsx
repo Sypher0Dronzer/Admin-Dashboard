@@ -10,9 +10,11 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./zustand/useAuthStore";
 import Home from "./pages/Home";
 import { useEffect } from "react";
+import UnauthorisedPage from "./pages/UnauthorisedPage";
+import PageNotFound from "./pages/PageNotFound";
 
 export default function App() {
-  const {user,authCheck,isLoading}=useAuthStore()
+  const {user,authCheck,isLoading,userRole}=useAuthStore()
   useEffect(()=>{
     authCheck();
    
@@ -29,19 +31,22 @@ export default function App() {
         <Route path="/signup" element={!user?<SignUp />:<Navigate to={'/'}/>} />
         <Route path="/login" element={!user?<Login />:<Navigate to={'/'}/>} />
         <Route path="/projects" element={user?<ProjectManagement />: <Navigate to={'/login'}/>} />
-        <Route path="/users" element={user?<UsersManagement />: <Navigate to={'/login'}/>} />
-        <Route path="/permissions" element={user?<PermissionsManagement />: <Navigate to={'/login'}/>} />
+
+        {(user && (userRole=='manager'|| userRole=='admin'))?
+        <Route path="/users" element={user?<UsersManagement />: <Navigate to={'/login'}/>} /> :
+        <Route path="/users" element={user?<UnauthorisedPage />: <Navigate to={'/login'}/>} />
+        }
+
+{(user && (userRole=='manager'|| userRole=='admin'))?
+        <Route path="/permissions" element={user?<PermissionsManagement />: <Navigate to={'/login'}/>} /> :
+        <Route path="/permissions" element={user?<UnauthorisedPage />: <Navigate to={'/login'}/>} />
+        }
+        {/* <Route path="/permissions" element={user?<PermissionsManagement />: <Navigate to={'/login'}/>} /> */}
         <Route path="/settings" element={user?<Settings />: <Navigate to={'/login'}/>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Toaster />
     </div>
   );
 }
 
-{/* <Route path="/login" element={!user? <LoginPage /> : <Navigate to={'/'}/>} />
-          <Route path="/signup" element={!user? <SignUpPage /> : <Navigate to={'/'}/>} />
-          <Route path="/search" element={user? <SearchPage /> : <Navigate to={'/login'}/>} />
-          <Route path="/history" element={user? <SearchHistoryPage /> : <Navigate to={'/login'}/>} />
-          <Route path="/watch/:type/:id" element={user? <WatchPage /> : <Navigate to={'/login'}/>} />
-          <Route path="/cast/:id" element={user? <CastDetailPage /> : <Navigate to={'/login'}/>} />
-          <Route path='/*' element={<NotFoundPage />} /> */}

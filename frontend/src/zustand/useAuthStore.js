@@ -23,7 +23,8 @@ export const useAuthStore = create((set,get) => ({
         withCredentials: true, // For sending cookies
       });
 
-      set({ user: res.data });
+      set({ user: res.data.user });
+      get().setUserRole()
     } catch (error) {
       console.log("Auth check error:", error);
     } finally {

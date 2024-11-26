@@ -1,14 +1,15 @@
+import PropTypes from "prop-types";
 import { IoMdMore } from "react-icons/io";
 import { useProjects } from "../zustand/useProjects";
+
 const ProjectCard = ({ detail }) => {
-  const {setSelectedProject}=useProjects()
+  const { setSelectedProject } = useProjects();
   const { _id, name, projectLead, tags, team, status } = detail;
-  // Calculate the number of additional members if there are more than 4
   const additionalMembers = team.length > 4 ? team.length - 4 : 0;
   const { deleteProject } = useProjects();
 
   return (
-    <div className="bg-base-100 p-4 shadow-md card">
+    <div className="bg-base-100 p-4 shadow-sm cursor-pointer hover:shadow-lg  hover:shadow-accent shadow-primary card">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-lg font-semibold">
@@ -31,21 +32,23 @@ const ProjectCard = ({ detail }) => {
             </li>
             <li>
               <button
-                onClick={() => {document.getElementById("new_member_modal").showModal()
-                  setSelectedProject(detail)
+                onClick={() => {
+                  document.getElementById("new_member_modal").showModal();
+                  setSelectedProject(detail);
                 }}
               >
                 Add Members
-              </button>              
+              </button>
             </li>
             <li>
               <button
-                onClick={() => {document.getElementById("remove_member_modal").showModal()
-                  setSelectedProject(detail)
+                onClick={() => {
+                  document.getElementById("remove_member_modal").showModal();
+                  setSelectedProject(detail);
                 }}
               >
                 Remove Members
-              </button>              
+              </button>
             </li>
           </ul>
         </div>
@@ -83,7 +86,6 @@ const ProjectCard = ({ detail }) => {
       <div className="flex justify-between items-center mt-4">
         {/* Members Avatar Group */}
         <div className="avatar-group -space-x-4 rtl:space-x-reverse  ">
-          {/* Display 4 avatars */}
           {Array.from({ length: Math.min(team.length, 4) }).map((_, index) => (
             <div key={index} className="avatar">
               <div className="w-8">
@@ -95,7 +97,6 @@ const ProjectCard = ({ detail }) => {
             </div>
           ))}
 
-          {/* Show the +X placeholder if more than 4 members */}
           {additionalMembers > 0 && (
             <div className="avatar placeholder">
               <div className="bg-neutral text-neutral-content w-8">
@@ -114,6 +115,21 @@ const ProjectCard = ({ detail }) => {
       </div>
     </div>
   );
+};
+
+ProjectCard.propTypes = {
+  detail: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    projectLead: PropTypes.shape({
+      profileImg: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }).isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    team: PropTypes.arrayOf(PropTypes.object).isRequired,
+    status: PropTypes.oneOf(["ongoing", "completed"]).isRequired,
+  }).isRequired,
 };
 
 export default ProjectCard;

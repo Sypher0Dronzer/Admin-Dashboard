@@ -10,6 +10,7 @@ import passport from "passport";
 
 //Import routes
 import authRoutes from "./routes/auth.route.js";
+import usersRoutes from "./routes/users.route.js";
 import projectsRoutes from "./routes/project.route.js"
 import { app, server } from "./socket/socket.js";
 
@@ -52,6 +53,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectsRoutes);
+app.use("/api/users", usersRoutes);
 
 // Server Listener
 const PORT = process.env.PORT || 5000;

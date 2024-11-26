@@ -38,7 +38,7 @@ const ProjectManagement = () => {
           <p className="badge badge-primary">{projects?.length}</p>
         </div>
         <div className="flex gap-x-4">
-          <button className="btn btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">
+          <button className="btn btn-square btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">
             <FiFilter className="text-lg" />
           </button>
           <button

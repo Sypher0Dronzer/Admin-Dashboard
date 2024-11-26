@@ -1,7 +1,6 @@
 import { GoHome } from "react-icons/go";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline,IoMailOpenOutline  } from "react-icons/io5";
 import logo from "../assets/logo.png";
-import { MdOutlineAnalytics } from "react-icons/md";
 import { MdOutlineDateRange } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -20,7 +19,7 @@ const LeftNav = () => {
         </button>
 
         <button className="btn btn-square btn-ghost hover:text-primary-content text-primary hover:bg-primary">
-          <MdOutlineAnalytics className="size-6" />
+          <IoMailOpenOutline className="size-6" />
         </button>
 
         <button className="btn btn-square btn-ghost hover:text-primary-content text-primary hover:bg-primary">
