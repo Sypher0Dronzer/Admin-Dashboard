@@ -3,11 +3,19 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
 import { useUsers } from "../zustand/useUsers";
 import { useAuthStore } from "../zustand/useAuthStore";
+import { useEffect } from "react";
 
 const UsersTable = ({ index, user }) => {
-  const { user: loggedInUser } = useAuthStore();
+  const { user: loggedInUser,onlineUsers } = useAuthStore();
   const { setSelectedUserToDelete, changeRole, setRoleSwitchUser } = useUsers();
-  function RoleChange(role,id) {
+  const isOnline=onlineUsers.includes(user._id)
+
+  useEffect(()=>{
+    console.log(onlineUsers.length)
+  },[onlineUsers])
+
+
+  function RoleChange(role, id) {
     setRoleSwitchUser(id);
     changeRole(role);
   }
@@ -25,7 +33,7 @@ const UsersTable = ({ index, user }) => {
             </div>
           </div>
           <div>
-            <div className="font-bold">{user.name}</div>
+            <div className="font-medium">{user.name}</div>
             <div className="text-sm opacity-50">{user.email}</div>
           </div>
         </div>
@@ -42,13 +50,17 @@ const UsersTable = ({ index, user }) => {
       </td>
       <td>
         <div
-          className={`badge badge-lg capitalize w-20 ${
-            user.status === "active"
-              ? "badge-success text-success-content"
-              : "badge-error text-error-content"
+          className={`badge badge-md capitalize w-20 ${
+            isOnline 
+              ? "badge-accent "
+              : "badge-neutral "
           }`}
         >
-          {user.status}
+          {
+            isOnline 
+              ? "Active"
+              : "Inactive"
+          }
         </div>
       </td>
       <td>
@@ -76,7 +88,7 @@ const UsersTable = ({ index, user }) => {
                 <li>
                   <button
                     onClick={() => {
-                      RoleChange("admin",user._id);
+                      RoleChange("admin", user._id);
                     }}
                   >
                     Make Admin
@@ -88,7 +100,7 @@ const UsersTable = ({ index, user }) => {
                     <li>
                       <button
                         onClick={() => {
-                          RoleChange("manager",user._id);
+                          RoleChange("manager", user._id);
                         }}
                       >
                         Make Manager
@@ -98,22 +110,34 @@ const UsersTable = ({ index, user }) => {
                     ""
                   )}
                   <li>
-                    <button onClick={() => {
-                          RoleChange("contributor",user._id);
-                        }}>Demote to Contributor</button>
+                    <button
+                      onClick={() => {
+                        RoleChange("contributor", user._id);
+                      }}
+                    >
+                      Demote to Contributor
+                    </button>
                   </li>
                 </>
               ) : (
                 <>
                   <li>
-                    <button onClick={() => {
-                          RoleChange("admin",user._id);
-                        }}>Demote to Admin</button>
+                    <button
+                      onClick={() => {
+                        RoleChange("admin", user._id);
+                      }}
+                    >
+                      Demote to Admin
+                    </button>
                   </li>
                   <li>
-                    <button onClick={() => {
-                          RoleChange("contributor",user._id);
-                        }}>Demote to Contributor</button>
+                    <button
+                      onClick={() => {
+                        RoleChange("contributor", user._id);
+                      }}
+                    >
+                      Demote to Contributor
+                    </button>
                   </li>
                 </>
               )}
@@ -145,6 +169,7 @@ const UsersTable = ({ index, user }) => {
 UsersTable.propTypes = {
   index: PropTypes.number.isRequired,
   user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     profileImg: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,

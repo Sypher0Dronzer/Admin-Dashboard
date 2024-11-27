@@ -28,7 +28,7 @@ export async function authCheck(req, res) {
     if (req.isAuthenticated()) {
       res.status(200).json({ success: true, user: req.user });
     } else {
-      res.status(400).json({ success: false });
+      res.status(400).json({ success: false,message:'User is not logged in' });
     }
   } catch (err) {
     // console.log("Error in authCheck controller", err.message);
@@ -132,6 +132,7 @@ export async function signup(req, res) {
 
 export async function login(req, res, next) {
   try {
+    console.log('its entering here')
     const loginResult = await handleLogin(req, res);
     return res.status(loginResult.status).json({
       success: true,

@@ -120,7 +120,7 @@ const RemoveMembersForm = () => {
       </div>
 
       {/* Submit Button */}
-      <button type="submit" className="btn btn-error w-full">
+      <button type="submit" className="btn btn-secondary w-full">
         Remove Members
       </button>
     </form>

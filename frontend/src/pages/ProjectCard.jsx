@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import { IoMdMore } from "react-icons/io";
 import { useProjects } from "../zustand/useProjects";
+import { useAuthStore } from "../zustand/useAuthStore";
 
 const ProjectCard = ({ detail }) => {
   const { setSelectedProject } = useProjects();
   const { _id, name, projectLead, tags, team, status } = detail;
   const additionalMembers = team.length > 4 ? team.length - 4 : 0;
   const { deleteProject } = useProjects();
+  const {userRole}=useAuthStore()
 
   return (
     <div className="bg-base-100 p-4 shadow-sm cursor-pointer hover:shadow-lg  hover:shadow-accent shadow-primary card">
@@ -16,13 +18,13 @@ const ProjectCard = ({ detail }) => {
           {name.length > 20 ? name.slice(0, 18) + "..." : name}
         </h1>
         <div className="dropdown dropdown-bottom dropdown-end ">
-          <div
+          {userRole !=="contributor" &&<div
             tabIndex={0}
             role="button"
             className="btn btn-sm btn-ghost btn-circle"
           >
             <IoMdMore className="text-lg" />
-          </div>
+          </div>}
           <ul
             tabIndex={0}
             className="dropdown-content menu bg-neutral text-neutral-content rounded-box z-[1] w-52 p-2 shadow"

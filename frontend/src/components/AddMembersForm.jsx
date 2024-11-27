@@ -140,7 +140,7 @@ const AddMembersForm = () => {
       </div>
 
       {/* Submit Button */}
-      <button type="submit" className="btn btn-success w-full">
+      <button type="submit" className="btn btn-primary w-full">
         Add Members
       </button>
     </form>

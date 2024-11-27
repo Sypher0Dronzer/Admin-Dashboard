@@ -89,7 +89,7 @@ export const useProjects = create((set, get) => ({
       toast.error(error.response.data.message);
     }
   },
-  removeMembers: async(selectedUsers) => {
+  removeMembers: async (selectedUsers) => {
     try {
       const backendUrl = useBackendUrl.getState().backendUrl;
       const credentials = {

@@ -75,7 +75,7 @@ const CreateNewUser = () => {
       </div>
 
       {/* Submit Button */}
-      <button type="submit" className="btn btn-success w-full">
+      <button type="submit" className="btn btn-primary w-full">
         Create User
       </button>
     </form>

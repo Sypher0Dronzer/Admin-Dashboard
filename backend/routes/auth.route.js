@@ -1,8 +1,7 @@
 import express from 'express'
 import { authCheck,  login, logout, signup } from '../controllers/auth.controller.js'
 import { protectRoute } from '../middleware/protectRoute.js'
-import userModel from '../models/user.model.js';
-import bcryptjs from "bcryptjs";
+
 
 const route=express.Router()
 // const users = [

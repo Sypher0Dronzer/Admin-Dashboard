@@ -24,7 +24,7 @@ const useSignup = () => {
       if (data.error) {
         throw new Error(data.error);
       }
-      loginUser(data);
+      loginUser();
       toast.success("User signed in!");
     } catch (error) {
       toast.error(error.message);

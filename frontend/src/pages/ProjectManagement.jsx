@@ -9,10 +9,12 @@ import { useProjects } from "../zustand/useProjects";
 import NewProjectForm from "../components/NewProjectForm";
 import AddMembersForm from "../components/AddMembersForm";
 import RemoveMembersForm from "../components/RemoveMembersForm";
+import { useAuthStore } from "../zustand/useAuthStore";
 
 const ProjectManagement = () => {
   const { projects, isLoading } = useProjects();
   const {setSelectedProject}=useProjects()
+  const {userRole}=useAuthStore()
 
 
   // useEffect(() => {
@@ -34,21 +36,21 @@ const ProjectManagement = () => {
       <Navbar />
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
-          <h1 className="text-lg font-bold">Projects</h1>
+          <h1 className="text-lg font-semibold">Projects</h1>
           <p className="badge badge-primary">{projects?.length}</p>
         </div>
         <div className="flex gap-x-4">
           <button className="btn btn-square btn-xs sm:btn-sm hover:text-primary-content text-primary hover:bg-primary">
             <FiFilter className="text-lg" />
           </button>
-          <button
+          {userRole !=="contributor"&&<button
             className="btn btn-xs sm:btn-sm btn-primary"
             onClick={() => document.getElementById("new_project_modal").showModal()}
           >
             <IoAdd className="text-lg" /> <p>Add New Project</p>
-          </button>
+          </button>}
           {/* -------------new project modal--------- */}
-          <dialog id="new_project_modal" className="modal">
+          {userRole !=="contributor" && <dialog id="new_project_modal" className="modal">
             <div className="modal-box bg-base-200">
               <form method="dialog">
                 <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2">
@@ -57,10 +59,10 @@ const ProjectManagement = () => {
               </form>
               <NewProjectForm></NewProjectForm>
             </div>
-          </dialog>
+          </dialog>}
 
           {/* -------------new member modal--------- */}
-          <dialog id={"new_member_modal"} className="modal ">
+          {userRole !=="contributor" &&<dialog id={"new_member_modal"} className="modal ">
                 <div className="modal-box bg-base-200">
                   <form method="dialog">
                     <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2"
@@ -71,9 +73,9 @@ const ProjectManagement = () => {
                   </form>
                   <AddMembersForm></AddMembersForm>
                 </div>
-              </dialog>
+              </dialog>}
               {/* -------------remove member modal--------- */}
-          <dialog id={"remove_member_modal"} className="modal ">
+          {userRole !=="contributor" &&<dialog id={"remove_member_modal"} className="modal ">
                 <div className="modal-box bg-base-200">
                   <form method="dialog">
                     <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2"
@@ -84,7 +86,7 @@ const ProjectManagement = () => {
                   </form>
                   <RemoveMembersForm></RemoveMembersForm>
                 </div>
-              </dialog>
+              </dialog>}
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useSignup from "../hooks/useSignUp";
+import AuthImagePattern from "../components/AuthImagePattern";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -17,16 +18,13 @@ const SignUp = () => {
 
   return (
     <>
-      {/* <div className="mx-auto  p-0.5 background-animate card bg-gradient-to-r from-primary via-base-content to-accent"> */}
-      <div className="flex h-screen w-screen items-center">
-        <div className="sm:min-w-96 mx-auto card bg-base-300 text-base-300-content">
-          <div className="w-full p-6">
+     
+      <div className="grid lg:grid-cols-2 sm:h-screen h-[100svh] font-light">
+        <div className=" mx-auto flex items-center  text-base-300-content max-w-[90vw]">
+          <div className="sm:w-[max(24vw,320px)] min-w-md">
             <h1 className="sm:text-3xl text-2xl font-semibold text-center">
               Sign Up{" "}
-              {/* <span className="bg-gradient-to-r background-animate from-primary via-base-content to-accent bg-clip-text text-transparent font-bold sm:text-4xl text-3xl brightness-150">
-                {" "}
-                Sora
-              </span> */}
+              
             </h1>
 
             <form onSubmit={handleSubmit}>
@@ -75,16 +73,16 @@ const SignUp = () => {
                 />
               </div>
 
-              <Link
+              <p
                 to={"/login"}
-                className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+                className="text-sm my-4 text-center"
                 href="#"
               >
-                Already have an account?
-              </Link>
+                Already have an account?<Link to='/login' className="link text-primary">{" "}Login</Link>
+              </p>
 
               <div>
-                <button className="btn btn-block btn-outline btn-sm mt-2 btn-primary ">
+                <button className="btn btn-block  btn-sm  btn-primary ">
                   {loading ? (
                     <span className="loading loading-spinner"></span>
                   ) : (
@@ -95,6 +93,10 @@ const SignUp = () => {
             </form>
           </div>
         </div>
+        <AuthImagePattern
+          title="Join Us"
+          subtitle="Great to have you Aboard!"
+        ></AuthImagePattern>
       </div>
     </>
   );

@@ -1,36 +1,7 @@
 import { useTheme } from "../zustand/useTheme";
-
+import { themes } from "../utils/themes";
 const ThemeSwitcher = () => {
-  const themes = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "synthwave",
-    "retro",
-    "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
-  ];
+  
   const { themeSwitcher } = useTheme();
 
   return (

@@ -3,11 +3,14 @@ import axios from "axios";
 import useBackendUrl from "./useBackendUrl";
 import { useProjects } from "./useProjects";
 import { useUsers } from "./useUsers";
-
+import { io } from "socket.io-client";
+import {usePermissions} from "./usePermissions"
 export const useAuthStore = create((set,get) => ({
   user: null,
   isLoading: false,
   userRole:null,
+  socket:null,
+  onlineUsers: [],
   setUserRole:()=>{
     set({userRole:get().user.role})
   },
@@ -22,9 +25,10 @@ export const useAuthStore = create((set,get) => ({
       const res = await axios.get(`${backendUrl}/api/auth/authcheck`, {
         withCredentials: true, // For sending cookies
       });
-
       set({ user: res.data.user });
-      get().setUserRole()
+      await usePermissions.getState().getAllPermissions()
+      await get().connectSocket();
+      await get().setUserRole()
     } catch (error) {
       console.log("Auth check error:", error);
     } finally {
@@ -33,8 +37,28 @@ export const useAuthStore = create((set,get) => ({
   },
   logoutUser: () => {
     set({ user: null });
+    get().disconnectSocket();
   },
-  loginUser: (data) => {
-    set({ user: data });
+  loginUser: async() => {
+    await get().authCheck()
+  },
+  connectSocket:()=>{
+    const { user } = get();
+    const backendUrl = useBackendUrl.getState().backendUrl;
+    const socket = io(backendUrl,{
+      query:{
+        userId:user._id
+      }
+    });
+    socket.connect();
+
+    set({ socket: socket });
+
+    socket.on("getOnlineUsers", (userIds) => {
+      set({ onlineUsers: userIds });
+    });
+  },
+  disconnectSocket: () => {
+    if (get().socket?.connected) get().socket.disconnect();
   },
 }));

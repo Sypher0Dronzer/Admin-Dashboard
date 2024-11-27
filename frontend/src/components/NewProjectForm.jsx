@@ -110,7 +110,7 @@ const NewProjectForm = () => {
       </div>
       
       {/* Submit Button */}
-      <button type="submit" className="btn btn-success w-full">
+      <button type="submit" className="btn btn-accent w-full">
         Create Project
       </button>
     </form>

@@ -1,4 +1,3 @@
-import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -12,12 +11,13 @@ import passport from "passport";
 import authRoutes from "./routes/auth.route.js";
 import usersRoutes from "./routes/users.route.js";
 import projectsRoutes from "./routes/project.route.js"
+import permissionRoutes from "./routes/permission.route.js"
+dotenv.config();
 import { app, server } from "./socket/socket.js";
 
-dotenv.config();
 
 const mongoStore = MongoStore.create({
-  mongoUrl: process.env.MONGO_URI, // Use the same database name
+  mongoUrl: process.env.NODE_ENV == 'development'? process.env.MONGO_LOCAL:process.env.MONGO_URI, // Use the same database name
   collectionName: "sessions", // Optional: Customize session collection name
 });
 
@@ -40,8 +40,8 @@ app.use(passport.session());
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_LINK,
-  // origin: 'http://localhost:5173',
+  // origin: [process.env.FRONTEND_LINK],
+  origin: ['http://localhost:5173','http://192.168.137.1:5173'],
   methods:["POST","GET","DELETE"],
   credentials: true,
 }));
@@ -54,6 +54,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectsRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/permissions", permissionRoutes);
 
 // Server Listener
 const PORT = process.env.PORT || 5000;

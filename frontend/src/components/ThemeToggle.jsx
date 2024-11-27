@@ -1,49 +1,20 @@
 import { PiPaintBrushBroadDuotone } from "react-icons/pi";
 import { useTheme } from "../zustand/useTheme";
-
+import { themes } from "../utils/themes";
 const ThemeToggle = () => {
-  const themes = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "synthwave",
-    "retro",
-    "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
-  ];
+  
   const { themeSwitcher } = useTheme();
 
   return (
     <div className={`dropdown dropdown-hover dropdown-right `}>
       <div tabIndex={0} role="button">
-      <button className="btn btn-square btn-ghost hover:text-primary-content text-primary hover:bg-primary">
+      <button className="btn btn-square btn-ghost hover:text-primary-content hover:bg-primary">
           <PiPaintBrushBroadDuotone className="size-6" />
         </button>
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content bg-base-300 rounded-box z-10 w-52 p-2 shadow-2xl overflow-auto max-h-[40vh]"
+        className="dropdown-content bg-base-300 rounded-box z-10 w-52 p-2 shadow-2xl overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-base-200 max-h-[40vh]"
       >
         {themes.map((themeOption) => (
           <li key={themeOption}>
