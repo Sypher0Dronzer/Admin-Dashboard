@@ -50,7 +50,7 @@ const RemoveMembersForm = () => {
 
   return (
     <form className="space-y-4 p-4" onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold text-center mb-4">Remove Members</h2>
+      <h2 className="sm:text-2xl text-xl font-bold text-center mb-4">Remove Members</h2>
 
       {/* Search Input */}
       <div className="form-control w-full mb-4">

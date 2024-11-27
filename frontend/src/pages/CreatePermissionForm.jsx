@@ -3,6 +3,7 @@ import LeftNav from "../components/LeftNav";
 import Navbar from "../components/Navbar";
 import { useAuthStore } from "../zustand/useAuthStore";
 import { usePermissions } from "../zustand/usePermissions";
+import MobileNav from "../components/MobileNav";
 
 const CreatePermissionForm = () => {
   // State to hold the form data
@@ -30,12 +31,14 @@ const CreatePermissionForm = () => {
   };
 
   return (
-    <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
+    <div className="bg-base-300 p-6 lg:pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
 <LeftNav />
 <Navbar />
+<MobileNav/>
+
     <div className="max-w-md mx-auto mt-10">
-      <div className="card p-6 bg-base-100 shadow-xl rounded-lg">
-        <h2 className="text-2xl font-semibold text-center mb-6">Create Permission</h2>
+      <div className="card sm:p-8 px-6 py-10 bg-base-100 shadow-xl rounded-lg">
+        <h2 className="sm:text-2xl text-xl font-semibold text-center mb-4 sm:mb-6">Seek Permission</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Subject Dropdown */}

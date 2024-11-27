@@ -17,7 +17,6 @@ const useLogin = () => {
       const res = await axios.post(`${backendUrl}/api/auth/login`,credentials, {
         withCredentials: true, // For sending cookies
       });
-      alert(res.data)
       const data = res.data;
       if (data.error) {
         throw new Error(data.error);
@@ -30,7 +29,6 @@ const useLogin = () => {
       }
     } catch (error) {
       toast.error(error.response.data.message);
-      alert(error.response.data.message);
     } finally {
       setLoading(false);
     }

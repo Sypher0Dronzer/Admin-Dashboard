@@ -26,7 +26,7 @@ export default function App() {
     </div>
   )
   return (
-    <div className="font-poppins max-w-[100vw] overflow-hidden">
+    <div className="font-poppins max-w-[100vw] ">
       <Routes>
         <Route index element={user?<Home />: <Navigate to={'/login'}/>} />
         <Route path="/signup" element={!user?<SignUp />:<Navigate to={'/'}/>} />

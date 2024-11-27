@@ -52,7 +52,7 @@ const NewProjectForm = () => {
 
   return (
     <form onSubmit={handleSubmit} >
-      <h2 className="text-2xl font-bold text-center mb-4">Create New Project</h2>
+      <h2 className="md:text-2xl text-xl  font-bold text-center mb-4">Create New Project</h2>
       
       {/* Project Name */}
       <div className="form-control w-full mb-4">

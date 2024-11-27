@@ -6,3 +6,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @media (min-width: 640px) and (max-width: 768px) {
+  .radial-progress {
+    --size: 25vw !important; 
+  }
+} */
+@media (max-width: 768px) {
+    .radial-progress {
+      --size: 25vw !important; 
+    }
+  }
+  @media (min-width: 768px) {
+    .radial-progress {
+      --size: 17vw !important; 
+    }
+  }
+  @media (min-width: 1280px) {
+    .radial-progress {
+      --size: 11vw !important; 
+    }
+  }
+  
+  @layer components{
+    .nav_button{
+      @apply btn btn-ghost btn-block hover:bg-primary hover:text-primary-content btn-sm
+    }
+  }

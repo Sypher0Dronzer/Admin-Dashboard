@@ -10,7 +10,7 @@ import useLogout from "../hooks/useLogout";
 const LeftNav = () => {
   const { logout } = useLogout();
   return (
-    <div className="fixed h-screen z-10 top-0 left-0  bg-base-100 flex flex-col items-center border-base-content/20 gap-y-8 px-2 py-4 border-l-0 border-[1px] border-y-0 justify-between">
+    <div className="fixed h-screen z-10 top-0 left-0  bg-base-100 hidden lg:flex flex-col items-center border-base-content/20 gap-y-8 px-2 py-4 border-l-0 border-[1px] border-y-0 justify-between">
       <ul className="flex flex-col gap-y-8 basis-1/2">
         <img src={logo} className="w-12" alt="" />
         <Link to="/">

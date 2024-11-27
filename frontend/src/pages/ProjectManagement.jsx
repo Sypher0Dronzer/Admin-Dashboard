@@ -10,6 +10,7 @@ import NewProjectForm from "../components/NewProjectForm";
 import AddMembersForm from "../components/AddMembersForm";
 import RemoveMembersForm from "../components/RemoveMembersForm";
 import { useAuthStore } from "../zustand/useAuthStore";
+import MobileNav from "../components/MobileNav";
 
 const ProjectManagement = () => {
   const { projects, isLoading } = useProjects();
@@ -31,9 +32,11 @@ const ProjectManagement = () => {
   }
 
   return (
-    <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200">
+    <div className="bg-base-300 p-6 lg:pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200">
       <LeftNav />
       <Navbar />
+      <MobileNav/>
+
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
           <h1 className="text-lg font-semibold">Projects</h1>
@@ -51,9 +54,9 @@ const ProjectManagement = () => {
           </button>}
           {/* -------------new project modal--------- */}
           {userRole !=="contributor" && <dialog id="new_project_modal" className="modal">
-            <div className="modal-box bg-base-200">
+            <div className="modal-box max-w-[400px] bg-base-200">
               <form method="dialog">
-                <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2">
+                <button className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
                   ✕
                 </button>
               </form>
@@ -63,7 +66,7 @@ const ProjectManagement = () => {
 
           {/* -------------new member modal--------- */}
           {userRole !=="contributor" &&<dialog id={"new_member_modal"} className="modal ">
-                <div className="modal-box bg-base-200">
+                <div className="modal-box max-w-[400px] bg-base-200">
                   <form method="dialog">
                     <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2"
                     onClick={()=>{setSelectedProject(null)
@@ -74,9 +77,10 @@ const ProjectManagement = () => {
                   <AddMembersForm></AddMembersForm>
                 </div>
               </dialog>}
+
               {/* -------------remove member modal--------- */}
           {userRole !=="contributor" &&<dialog id={"remove_member_modal"} className="modal ">
-                <div className="modal-box bg-base-200">
+                <div className="modal-box bg-base-200 max-w-[400px]">
                   <form method="dialog">
                     <button className="btn btn-md sm:btn-lg btn-circle btn-ghost absolute right-2 top-2"
                     onClick={()=>{setSelectedProject(null)
@@ -89,8 +93,8 @@ const ProjectManagement = () => {
               </dialog>}
         </div>
       </div>
-
-      <div className="overflow-x-hidden grid lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
+{/* --------------projects grid------------- */}
+      <div className=" grid lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
         {projects && projects.length > 0 ? (
           projects.map((project, index) => (
             <ProjectCard key={index} detail={project} />

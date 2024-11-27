@@ -69,8 +69,8 @@ const AddMembersForm = () => {
   };
 
   return (
-    <form className="space-y-4 p-4" onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold text-center mb-4">Add Members</h2>
+    <form className="space-y-4 p-4 overflow-y-hidden" onSubmit={handleSubmit}>
+      <h2 className="sm:text-2xl text-xl font-bold text-center mb-4">Add Members</h2>
 
       {/* Search Input */}
       <div className="form-control w-full mb-4">
@@ -103,7 +103,7 @@ const AddMembersForm = () => {
                 filteredUsers.map((user) => (
                   <li
                     key={user._id}
-                    className="p-2 hover:bg-neutral text-neutral-content cursor-pointer"
+                    className="p-2 hover:bg-neutral text-sm text-neutral-content cursor-pointer"
                     onClick={() => handleSelectUser(user)}
                   >
                     {user.name} ({user.email})

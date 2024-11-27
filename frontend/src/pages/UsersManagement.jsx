@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import { useUsers } from "../zustand/useUsers";
 import UsersTable from "../components/UsersTable";
 import CreateNewUser from "../components/CreateNewUser";
+import UserMobileCard from "../components/userMobileCard";
+import MobileNav from "../components/MobileNav";
 const UsersManagement = () => {
 
   const { allUsers, isLoading,deleteUser,setSelectedUserToDelete } = useUsers();
@@ -19,9 +21,10 @@ const UsersManagement = () => {
     );
   }
   return (
-    <div className="bg-base-300 p-6 pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
+    <div className="bg-base-300 p-6 lg:pl-24 pt-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-base-200 ">
       <LeftNav />
       <Navbar />
+      <MobileNav/>
       <div className="flex justify-between">
         <div className="flex gap-x-4 items-center">
           <h1 className="text-lg font-semibold">Users</h1>
@@ -74,14 +77,14 @@ const UsersManagement = () => {
               <CreateNewUser></CreateNewUser>
             </div>
           </dialog>
-        <table className="table">
-          {/* head */}
-          <thead className="bg-primary text-primary-content">
-            <tr className="text-lg ">
+          {/*------------------------- table ---------------------*/}
+        <table className="hidden sm:table">
+          <thead className="bg-primary ">
+            <tr className="text-lg text-primary-content">
               <th></th>
               <th className="font-semibold">Name</th>
               <th className="font-semibold">Role</th>
-              <th className="font-semibold">Projects</th>
+              <th className="font-semibold hidden lg:block">Projects</th>
               <th className="font-semibold">Status</th>
               <th className="font-semibold">Actions</th>
             </tr>
@@ -92,17 +95,23 @@ const UsersManagement = () => {
             ))}
           </tbody>
           {/* foot */}
-          <tfoot className="bg-primary text-primary-content">
-            <tr className="text-lg">
+          <tfoot className="bg-primary ">
+            <tr className="text-lg text-primary-content">
             <th></th>
               <th className="font-semibold">Name</th>
               <th className="font-semibold">Role</th>
-              <th className="font-semibold">Projects</th>
+              <th className="font-semibold hidden lg:block">Projects</th>
               <th className="font-semibold">Status</th>
               <th className="font-semibold">Actions</th>
             </tr>
           </tfoot>
         </table>
+        {/* -----------mobile devices display------------ */}
+        <div className="flex sm:hidden flex-col gap-y-4">
+        {allUsers?.map((user,index)=>{
+          return <UserMobileCard key={index} index={index} user={user}></UserMobileCard>
+        })}
+        </div>
       </div>
     </div>
   );

@@ -3,17 +3,11 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
 import { useUsers } from "../zustand/useUsers";
 import { useAuthStore } from "../zustand/useAuthStore";
-import { useEffect } from "react";
 
 const UsersTable = ({ index, user }) => {
   const { user: loggedInUser,onlineUsers } = useAuthStore();
   const { setSelectedUserToDelete, changeRole, setRoleSwitchUser } = useUsers();
   const isOnline=onlineUsers.includes(user._id)
-
-  useEffect(()=>{
-    console.log(onlineUsers.length)
-  },[onlineUsers])
-
 
   function RoleChange(role, id) {
     setRoleSwitchUser(id);
@@ -34,16 +28,16 @@ const UsersTable = ({ index, user }) => {
           </div>
           <div>
             <div className="font-medium">{user.name}</div>
-            <div className="text-sm opacity-50">{user.email}</div>
+            <div className="lg:text-sm text-xs opacity-70">{user.email}</div>
           </div>
         </div>
       </td>
       <td>
         <p className="capitalize">{user.role}</p>
       </td>
-      <td className=" gap-y-1">
+      <td className="hidden lg:block  gap-y-1">
         {user.projects.map((project, index) => (
-          <p key={index} className="">
+          <p key={index} className="lg:text-sm">
             {project?.name}
           </p>
         ))}
@@ -52,7 +46,7 @@ const UsersTable = ({ index, user }) => {
         <div
           className={`badge badge-md capitalize w-20 ${
             isOnline 
-              ? "badge-accent "
+              ? "badge-accent"
               : "badge-neutral "
           }`}
         >
@@ -64,14 +58,12 @@ const UsersTable = ({ index, user }) => {
         </div>
       </td>
       <td>
-        <div className="flex gap-2 font-normal">
+        <div className="flex gap-2 font-normal flex-wrap">
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
-              className={`${
-                index % 2 == 0 ? "bg-base-200" : "bg-base-100"
-              } btn btn-sm hover:btn-info flex flex-nowrap ${
+              className={` btn btn-sm min-w-24 btn-outline btn-info flex flex-nowrap ${
                 user._id === loggedInUser._id ||
                 (user.role == "manager" && loggedInUser.role !== "manager")
                   ? "btn-disabled"
@@ -144,9 +136,7 @@ const UsersTable = ({ index, user }) => {
             </ul>
           </div>
           <button
-            className={`${
-              index % 2 == 0 ? "bg-base-200" : "bg-base-100"
-            } btn btn-sm hover:btn-error ${
+            className={` btn btn-sm btn-outline btn-error min-w-24  ${
               user._id === loggedInUser._id ||
               (user.role == "manager" && loggedInUser.role !== "manager")
                 ? "btn-disabled"
