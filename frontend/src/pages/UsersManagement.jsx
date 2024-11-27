@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import { useUsers } from "../zustand/useUsers";
 import UsersTable from "../components/UsersTable";
 import CreateNewUser from "../components/CreateNewUser";
-import UserMobileCard from "../components/userMobileCard";
+import UserMobileCard from "../components/UserMobileCard";
 import MobileNav from "../components/MobileNav";
 const UsersManagement = () => {
 
