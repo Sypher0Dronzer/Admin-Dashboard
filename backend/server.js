@@ -21,6 +21,30 @@ const mongoStore = MongoStore.create({
   collectionName: "sessions", // Optional: Customize session collection name
 });
 
+if(process.env.NODE_ENV !=='development'){
+  app.set('trust proxy',1)
+}
+
+// Middleware
+app.use(cors({
+  origin: [process.env.FRONTEND_LINK],
+  // origin: ['http://localhost:5173','http://192.168.137.1:5173'],
+  methods:["POST","GET","DELETE"],
+  credentials: true,
+}));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_LINK);
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -38,25 +62,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware
-app.use(cors({
-  origin: [process.env.FRONTEND_LINK],
-  // origin: ['http://localhost:5173','http://192.168.137.1:5173'],
-  methods:["POST","GET","DELETE"],
-  credentials: true,
-}));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_LINK);
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET, POST");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
-
-// Connect to MongoDB
 
 // Routes
 app.use("/api/auth", authRoutes);
