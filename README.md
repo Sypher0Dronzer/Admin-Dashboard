@@ -1,5 +1,8 @@
 # Role-Based Access Control (RBAC) Dashboard
 
+## Video Demo
+For a demo of the website, you can check out the video here: [Video Demo](https://www.linkedin.com/posts/soham-saha-529291250_role-based-access-control-rbac-dashboard-activity-7267535386816442369-KWd3?utm_source=share&utm_medium=member_desktop)
+
 
 
 This is a **Role-Based Access Control Dashboard** project where users with different roles are granted access to specific features. The roles in this system include **Manager**, **Admin**, and **Contributor**, each with distinct permissions.
