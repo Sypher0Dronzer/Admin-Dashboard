@@ -91,6 +91,20 @@ npm run dev
 
 ---
 
+## Demo Users
+
+Below are the demo users for testing the application:
+
+| Name                | Email                         | Role         | Password |
+|---------------------|-------------------------------|--------------|----------|
+| Franklin Miller     | franklin.miller@example.com  | Manager      | 123456   |
+| Olivia Martinez     | olivia.martinez@example.com  | Contributor  | 123456   |
+| James Brown         | james.brown@example.com      | Admin        | 123456   |
+
+Use these credentials to log in and explore the application.
+
+---
+
 ## Technologies Used
 - **Frontend**: React, Tailwind CSS, Daisy UI
 - **Backend**: Node.js, Express, Socket IO
