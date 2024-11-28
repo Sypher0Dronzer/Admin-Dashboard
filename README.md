@@ -94,7 +94,7 @@ npm run dev
 ## Technologies Used
 - **Frontend**: React, Tailwind CSS, Daisy UI
 - **Backend**: Node.js, Express, Socket IO
-- **Database**: MongoDB (or any database used in your project)
+- **Database**: MongoDB 
 
 ---
 
